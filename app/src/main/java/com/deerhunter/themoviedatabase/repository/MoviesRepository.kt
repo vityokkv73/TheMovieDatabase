@@ -6,6 +6,6 @@ import javax.inject.Inject
 
 class MoviesRepository @Inject constructor(private val api: Api): IMoviesRepository {
     override suspend fun getPopularMovies(page: Int): List<MovieBrief> {
-        return api.getPopularMovies(page)
+        return api.getPopularMovies(page).results
     }
 }
