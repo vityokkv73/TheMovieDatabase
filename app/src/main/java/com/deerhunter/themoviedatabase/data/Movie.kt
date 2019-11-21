@@ -1,8 +1,12 @@
 package com.deerhunter.themoviedatabase.data
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.util.*
 
-data class MovieBrief(
+@Entity(tableName = "popular_movie_briefs")
+data class PopularMovieBrief(
+    @PrimaryKey
     val id: Int,
     val title: String,
     val originalTitle: String,

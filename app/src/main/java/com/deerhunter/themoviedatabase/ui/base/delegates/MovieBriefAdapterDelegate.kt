@@ -6,8 +6,8 @@ import kotlinx.android.synthetic.main.movie_brief.*
 
 fun movieBriefAdapterDelegate(itemClickedListener: (MovieBriefUiItem) -> Unit) =
     adapterDelegateLayoutContainer<MovieBriefUiItem, UiItem>(R.layout.movie_brief) {
-        movieName.setOnClickListener { itemClickedListener(item) }
+        itemView.setOnClickListener { itemClickedListener(item) }
         bind { diffPayloads ->
-            movieName.text = item.movieBrief.title
+            movieName.text = item.popularMovieBrief.title
         }
     }

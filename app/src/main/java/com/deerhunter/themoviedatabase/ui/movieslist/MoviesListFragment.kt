@@ -1,5 +1,6 @@
 package com.deerhunter.themoviedatabase.ui.movieslist
 
+import android.app.UiAutomation
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import com.deerhunter.themoviedatabase.R
+import com.deerhunter.themoviedatabase.ui.base.delegates.UiItem
 import com.deerhunter.themoviedatabase.ui.base.delegates.UiItemAdapter
 import com.deerhunter.themoviedatabase.ui.base.delegates.movieBriefAdapterDelegate
 import com.deerhunter.themoviedatabase.ui.base.injectViewModel
@@ -24,14 +27,14 @@ class MoviesListFragment : Fragment() {
 
     private val adapter = UiItemAdapter(
         movieBriefAdapterDelegate {
-            Timber.d("Clicked ${it.movieBrief.title}")
+            Timber.d("Clicked ${it.popularMovieBrief.title}")
             doShuffle()
         })
 
     private fun doShuffle() {
-        val items = adapter.items.toMutableList()
-        items.shuffle()
-        adapter.items = items
+//        val items = adapter.items.toMutableList()
+//        items.shuffle()
+//        adapter.items = items
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +59,7 @@ class MoviesListFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = injectViewModel(viewModelFactory)
         viewModel.moviesLiveData.observe(viewLifecycleOwner, Observer { movies ->
-            adapter.items = movies
+            adapter.submitList(movies as PagedList<UiItem>)
         })
     }
 

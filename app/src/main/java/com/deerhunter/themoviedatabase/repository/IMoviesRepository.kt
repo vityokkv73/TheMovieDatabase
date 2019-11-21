@@ -1,7 +1,9 @@
 package com.deerhunter.themoviedatabase.repository
 
-import com.deerhunter.themoviedatabase.data.MovieBrief
+import androidx.paging.DataSource
+import com.deerhunter.themoviedatabase.data.PopularMovieBrief
 
 interface IMoviesRepository {
-    suspend fun getPopularMovies(page: Int): List<MovieBrief>
+    fun getPopularMovies(): DataSource.Factory<Int, PopularMovieBrief>
+    fun getPopularMoviesFromNetwork(): DataSource.Factory<Int, PopularMovieBrief>
 }
