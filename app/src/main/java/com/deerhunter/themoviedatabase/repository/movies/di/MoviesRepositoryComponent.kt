@@ -1,4 +1,4 @@
-package com.deerhunter.themoviedatabase.repository.di
+package com.deerhunter.themoviedatabase.repository.movies.di
 
 import com.deerhunter.themoviedatabase.database.di.IDatabaseProvider
 import com.deerhunter.themoviedatabase.network.di.INetworkProvider

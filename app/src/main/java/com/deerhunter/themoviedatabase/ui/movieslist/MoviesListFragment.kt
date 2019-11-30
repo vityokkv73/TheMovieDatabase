@@ -1,6 +1,5 @@
 package com.deerhunter.themoviedatabase.ui.movieslist
 
-import android.app.UiAutomation
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,14 +27,7 @@ class MoviesListFragment : Fragment() {
     private val adapter = UiItemAdapter(
         movieBriefAdapterDelegate {
             Timber.d("Clicked ${it.popularMovieBrief.title}")
-            doShuffle()
         })
-
-    private fun doShuffle() {
-//        val items = adapter.items.toMutableList()
-//        items.shuffle()
-//        adapter.items = items
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

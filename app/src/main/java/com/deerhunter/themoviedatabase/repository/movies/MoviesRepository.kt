@@ -1,10 +1,11 @@
-package com.deerhunter.themoviedatabase.repository
+package com.deerhunter.themoviedatabase.repository.movies
 
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import com.deerhunter.themoviedatabase.data.PopularMovieBrief
 import com.deerhunter.themoviedatabase.database.TmdbDatabase
 import com.deerhunter.themoviedatabase.network.Api
+import com.deerhunter.themoviedatabase.repository.movies.IMoviesRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

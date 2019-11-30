@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.deerhunter.themoviedatabase.repository.IMoviesRepository
+import com.deerhunter.themoviedatabase.repository.movies.IMoviesRepository
 import com.deerhunter.themoviedatabase.ui.base.delegates.MovieBriefUiItem
 import javax.inject.Inject
 

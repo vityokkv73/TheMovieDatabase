@@ -1,4 +1,4 @@
-package com.deerhunter.themoviedatabase.repository
+package com.deerhunter.themoviedatabase.repository.movies
 
 import androidx.paging.DataSource
 import com.deerhunter.themoviedatabase.data.PopularMovieBrief

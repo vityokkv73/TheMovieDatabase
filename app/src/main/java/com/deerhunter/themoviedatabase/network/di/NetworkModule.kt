@@ -1,10 +1,15 @@
 package com.deerhunter.themoviedatabase.network.di
 
+import android.content.Context
 import com.deerhunter.themoviedatabase.network.Api
 import com.deerhunter.themoviedatabase.network.AuthorizationInterceptor
 import com.deerhunter.themoviedatabase.network.IAuthorizationInterceptor
+import com.google.gson.FieldNamingPolicy
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -32,13 +37,21 @@ class NetworkModule {
 
     @Provides
     @Singleton
+    internal fun provideCache(context: Context): Cache {
+        return Cache(context.cacheDir, 10 * 1024 * 1024L)
+    }
+
+    @Provides
+    @Singleton
     internal fun provideOkHttpClient(
         httpInterceptor: HttpLoggingInterceptor,
-        authorizationInterceptor: IAuthorizationInterceptor
+        authorizationInterceptor: IAuthorizationInterceptor,
+        cache: Cache
     ): OkHttpClient {
         return OkHttpClient().newBuilder()
             .connectTimeout(60 * 1000, TimeUnit.MILLISECONDS)
             .readTimeout(60 * 1000, TimeUnit.MILLISECONDS)
+            .cache(cache)
             .addInterceptor(httpInterceptor)
             .addInterceptor(authorizationInterceptor)
             .build()
@@ -46,11 +59,20 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    internal fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    internal fun provideGson(): Gson {
+        val gsonBuilder = GsonBuilder()
+        gsonBuilder.setFieldNamingStrategy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+//        gsonBuilder.registerTypeAdapter(Date::class.java, DateDeserializer())
+        return gsonBuilder.create()
+    }
+
+    @Provides
+    @Singleton
+    internal fun provideRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
         return Builder()
             .baseUrl("https://api.themoviedb.org/3/")
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
 
