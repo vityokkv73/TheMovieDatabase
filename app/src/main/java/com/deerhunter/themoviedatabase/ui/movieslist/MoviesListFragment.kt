@@ -16,7 +16,6 @@ import com.deerhunter.themoviedatabase.ui.base.injectViewModel
 import com.deerhunter.themoviedatabase.ui.movieslist.di.DaggerMoviesListComponent
 import kotlinx.android.synthetic.main.movies_list_fragment.*
 import me.vponomarenko.injectionmanager.x.XInjectionManager
-import timber.log.Timber
 import javax.inject.Inject
 
 class MoviesListFragment : Fragment() {
@@ -26,13 +25,15 @@ class MoviesListFragment : Fragment() {
 
     private val adapter = UiItemAdapter(
         movieBriefAdapterDelegate {
-            Timber.d("Clicked ${it.popularMovieBrief.title}")
+            viewModel.onMovieBriefClicked(it.popularMovieBrief)
         })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DaggerMoviesListComponent.builder()
-            .iMoviesRepositoryProvider(XInjectionManager.findComponent()).build().inject(this)
+            .iMoviesRepositoryProvider(XInjectionManager.findComponent())
+            .iNavigationProvider(XInjectionManager.findComponent())
+            .build().inject(this)
     }
 
     override fun onCreateView(

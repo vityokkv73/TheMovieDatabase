@@ -2,10 +2,10 @@ package com.deerhunter.themoviedatabase.repository.movies
 
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
+import com.deerhunter.themoviedatabase.data.Movie
 import com.deerhunter.themoviedatabase.data.PopularMovieBrief
 import com.deerhunter.themoviedatabase.database.TmdbDatabase
 import com.deerhunter.themoviedatabase.network.Api
-import com.deerhunter.themoviedatabase.repository.movies.IMoviesRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -17,7 +17,7 @@ class MoviesRepository @Inject constructor(
 ) : IMoviesRepository, CoroutineScope {
     override val coroutineContext = GlobalScope.coroutineContext
 
-    override fun getPopularMovies(): DataSource.Factory<Int, PopularMovieBrief> {
+    override fun getPopularMoviesFromDb(): DataSource.Factory<Int, PopularMovieBrief> {
         return database.popularMovieBriefDao().loadAll()
     }
 
@@ -65,5 +65,9 @@ class MoviesRepository @Inject constructor(
                 }
             }
         }
+    }
+
+    override suspend fun getMovieById(movieId: Int): Movie {
+        return api.getMovieDetailsById(movieId)
     }
 }
