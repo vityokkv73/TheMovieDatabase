@@ -10,10 +10,10 @@ androidExtensions {
 android {
     signingConfigs {
         release {
-            storeFile file('C:\\Users\\deerhunter\\Desktop\\Java\\jdk-11.0.2\\bin\\tmdb_release.keystore')
-            storePassword = 'unknown'
-            keyAlias = 'tmdb_release'
-            keyPassword = 'unknown'
+//            storeFile file('C:\\Users\\deerhunter\\Desktop\\Java\\jdk-11.0.2\\bin\\tmdb_release.keystore')
+//            storePassword = 'unknown'
+//            keyAlias = 'tmdb_release'
+//            keyPassword = 'unknown'
         }
     }
     compileSdkVersion 29
