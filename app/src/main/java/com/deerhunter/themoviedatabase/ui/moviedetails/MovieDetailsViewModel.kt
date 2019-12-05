@@ -6,13 +6,15 @@ import com.deerhunter.themoviedatabase.repository.movies.IMoviesRepository
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
-class MovieDetailsViewModel @Inject constructor(private val moviesRepository: IMoviesRepository) :
-    ViewModel() {
+class MovieDetailsViewModel @Inject constructor(
+    private val moviesRepository: IMoviesRepository
+) : ViewModel() {
+
     val movie: LiveData<MovieResult> = liveData {
         emit(MovieResult.Loading)
         try {
             emit(MovieResult.Content(moviesRepository.getMovieById(movieId)))
-        } catch(ex: Exception) {
+        } catch (ex: Exception) {
             emit(MovieResult.Error(ex))
         }
     }
@@ -21,7 +23,7 @@ class MovieDetailsViewModel @Inject constructor(private val moviesRepository: IM
 
     sealed class MovieResult {
         object Loading : MovieResult()
-        class Content(val movie: Movie): MovieResult()
-        class Error(val ex: Throwable): MovieResult()
+        class Content(val movie: Movie) : MovieResult()
+        class Error(val ex: Throwable) : MovieResult()
     }
 }

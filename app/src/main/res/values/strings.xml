@@ -2,4 +2,7 @@
     <string name="app_name">The movie database</string>
     <string name="fallback_for_unknown_type_of_uiitem">Fallback for unknown type of UiItem</string>
     <string name="cant_render_for_type">Can\'t render view for type %s</string>
+    <string name="movie_description_format">Release date: %1$s\npopularity: %2$.2f\nvote average: %3$.2f</string>
+    <string name="retry">Retry</string>
+    <string name="problem_to_show_movie_info">Problem to show movie info occurred</string>
 </resources>
