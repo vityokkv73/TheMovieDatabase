@@ -38,15 +38,15 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
-        name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
-        command: sudo chmod +x ./gradlew
+          name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
+          command: sudo chmod +x ./gradlew
       - run:
-        name: Run Unit Tests
-        command: ./gradlew testDebugUnitTestCoverage
+          name: Run Unit Tests
+          command: ./gradlew testDebugUnitTestCoverage
       - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
-        path: app/build/test-results
+          path: app/build/test-results
 
 workflows:
   version: 2
