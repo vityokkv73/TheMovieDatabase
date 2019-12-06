@@ -13,7 +13,12 @@ class MovieDetailsViewModel @Inject constructor(
     val movie: LiveData<MovieResult> = liveData {
         emit(MovieResult.Loading)
         try {
-            emit(MovieResult.Content(moviesRepository.getMovieById(movieId)))
+            val movie = moviesRepository.getMovieById(movieId)
+            if (movie != null) {
+                emit(MovieResult.Content(movie))
+            } else {
+                MovieResult.Error(NoSuchElementException())
+            }
         } catch (ex: Exception) {
             emit(MovieResult.Error(ex))
         }

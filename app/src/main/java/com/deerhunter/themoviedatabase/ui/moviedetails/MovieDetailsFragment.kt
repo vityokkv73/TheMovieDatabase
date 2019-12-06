@@ -18,6 +18,8 @@ import kotlinx.android.synthetic.main.movie_details_fragment.*
 import kotlinx.android.synthetic.main.movie_details_fragment.moviePoster
 import me.vponomarenko.injectionmanager.x.XInjectionManager
 import timber.log.Timber
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 class MovieDetailsFragment : Fragment() {
@@ -67,7 +69,12 @@ class MovieDetailsFragment : Fragment() {
             movieTitle.text = originalTitle
             movieOverview.text = overview
             movieDetails.text =
-                getString(R.string.movie_description_format, releaseDate, popularity, voteAverage)
+                getString(
+                    R.string.movie_description_format,
+                    SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(releaseDate),
+                    popularity,
+                    voteAverage
+                )
         }
     }
 

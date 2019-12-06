@@ -82,6 +82,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     implementation 'androidx.paging:paging-runtime:2.1.0'
     implementation "androidx.room:room-runtime:2.2.2"
+    implementation "androidx.room:room-ktx:2.2.2"
     implementation "com.marcinmoskala.PreferenceHolder:preferenceholder:1.51"
     implementation "com.marcinmoskala.PreferenceHolder:preferenceholder-gson-serializer:1.51"
     kapt "androidx.room:room-compiler:2.2.2"

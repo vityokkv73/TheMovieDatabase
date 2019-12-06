@@ -6,9 +6,7 @@ import com.deerhunter.themoviedatabase.data.Movie
 import com.deerhunter.themoviedatabase.data.PopularMovieBrief
 import com.deerhunter.themoviedatabase.database.TmdbDatabase
 import com.deerhunter.themoviedatabase.network.Api
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class MoviesRepository @Inject constructor(
@@ -16,6 +14,7 @@ class MoviesRepository @Inject constructor(
     private val database: TmdbDatabase
 ) : IMoviesRepository, CoroutineScope {
     override val coroutineContext = GlobalScope.coroutineContext
+    private val movieDAO = database.movieDao()
 
     override fun getPopularMoviesFromDb(): DataSource.Factory<Int, PopularMovieBrief> {
         return database.popularMovieBriefDao().loadAll()
@@ -67,7 +66,16 @@ class MoviesRepository @Inject constructor(
         }
     }
 
-    override suspend fun getMovieById(movieId: Int): Movie {
-        return api.getMovieDetailsById(movieId)
+    override suspend fun getMovieById(movieId: Int): Movie? = coroutineScope {
+        val movieFromDb = getMovieFromDb(movieId)
+        if (movieFromDb != null) {
+            movieFromDb
+        } else {
+            val movieFromNetwork = api.getMovieDetailsById(movieId)
+            movieDAO.insertAll(movieFromNetwork)
+            getMovieFromDb(movieId)
+        }
     }
+
+    private suspend fun getMovieFromDb(movieId: Int) = movieDAO.getMovieDetailsById(movieId)
 }

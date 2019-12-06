@@ -15,6 +15,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.Retrofit.Builder
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.DateFormat
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -60,10 +61,10 @@ class NetworkModule {
     @Provides
     @Singleton
     internal fun provideGson(): Gson {
-        val gsonBuilder = GsonBuilder()
-        gsonBuilder.setFieldNamingStrategy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-//        gsonBuilder.registerTypeAdapter(Date::class.java, DateDeserializer())
-        return gsonBuilder.create()
+        return GsonBuilder().apply {
+            setFieldNamingStrategy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            setDateFormat("yyyy-MM-dd")
+        }.create()
     }
 
     @Provides
