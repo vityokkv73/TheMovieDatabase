@@ -7,5 +7,5 @@ import com.deerhunter.themoviedatabase.data.PopularMovieBrief
 interface IMoviesRepository {
     fun getPopularMoviesFromDb(): DataSource.Factory<Int, PopularMovieBrief>
     fun getPopularMoviesFromNetwork(): DataSource.Factory<Int, PopularMovieBrief>
-    suspend fun getMovieById(movieId: Int): Movie
+    suspend fun getMovieById(movieId: Int): Movie?
 }
