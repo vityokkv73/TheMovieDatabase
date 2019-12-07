@@ -19,6 +19,9 @@ jobs:
           name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
           command: sudo chmod +x ./gradlew
       - run:
+          name: Print env vars
+          command: echo "$DRIVE_URL $ARCHIVE"
+      - run:
           name: Load configuration
           command: sudo chmod +x ./config/load_config.sh && ./config/load_config.sh $DRIVE_URL $ARCHIVE
       - run:
