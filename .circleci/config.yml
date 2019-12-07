@@ -23,11 +23,7 @@ jobs:
           command: echo "$DRIVE_URL $ARCHIVE"
       - run:
           name: Load configuration
-          command: curl curl -L -o config.zip "$DRIVE_URL" \
-            && unzip -P "$ARCHIVE" config.zip \
-            && mv config/config.properties ./ \
-            && mv config/tmdb_release.keystore ./config \
-            && rm config.zip
+          command: sudo chmod +x ./config/load_config.sh && ./config/load_config.sh $DRIVE_URL $ARCHIVE
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
