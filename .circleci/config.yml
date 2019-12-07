@@ -23,7 +23,7 @@ jobs:
           command: echo "$DRIVE_URL $ARCHIVE"
       - run:
           name: Load configuration
-          command: sudo chmod +x ./config/load_config.sh && ./config/load_config.sh $DRIVE_URL $ARCHIVE
+          command: sudo chmod +x ./config/load_config.sh && ./config/load_config.sh testparam $ARCHIVE
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
