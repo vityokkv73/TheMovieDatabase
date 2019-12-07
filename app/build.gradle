@@ -8,12 +8,19 @@ androidExtensions {
 }
 
 android {
+    def props = new Properties()
+    file("../config.properties").withInputStream { props.load(it) }
+    def api_token = props.getProperty("api_token")
+    def storePasswordProp = props.getProperty("storePassword")
+    def keyAliasProp = props.getProperty("keyAlias")
+    def keyPasswordProp = props.getProperty("keyPassword")
+
     signingConfigs {
         release {
-//            storeFile file('C:\\Users\\deerhunter\\Desktop\\Java\\jdk-11.0.2\\bin\\tmdb_release.keystore')
-//            storePassword = 'unknown'
-//            keyAlias = 'tmdb_release'
-//            keyPassword = 'unknown'
+            storeFile file('../config/tmdb_release.keystore')
+            storePassword = storePasswordProp
+            keyAlias = keyAliasProp
+            keyPassword = keyPasswordProp
         }
     }
     compileSdkVersion 29

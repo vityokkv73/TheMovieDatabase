@@ -13,3 +13,4 @@
 .externalNativeBuild
 .cxx
 /config.properties
+tmdb_release.keystore
