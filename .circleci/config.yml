@@ -21,6 +21,9 @@ jobs:
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
+      -run:
+          name: Load configuration
+          command: sudo chmod +x ./config/load_config.sh && ./config/load_config.sh
       - run:
           name: Build debug version
           command: ./gradlew assembleDebug
@@ -42,6 +45,9 @@ jobs:
       - run:
           name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
           command: sudo chmod +x ./gradlew
+      -run:
+          name: Load configuration
+          command: sudo chmod +x ./config/load_config.sh && ./config/load_config.sh
       - run:
           name: Run Unit Tests
           command: ./gradlew testDebugUnitTest
