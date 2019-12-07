@@ -35,7 +35,7 @@ jobs:
           path: app/build/reports
           destination: reports
 
-   release_build:
+  release_build:
     <<: *defaults
     steps:
       - checkout
