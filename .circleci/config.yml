@@ -85,4 +85,5 @@ workflows:
   debug_build_and_unit_tests:
     jobs:
       - debug_build
+      - release_build
       - unit_tests
