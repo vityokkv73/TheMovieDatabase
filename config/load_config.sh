@@ -1,7 +1,7 @@
 #!/bin/bash
 
-echo "$DRIVE_URL"
-echo "$ARCHIVE"
+echo "______$DRIVE_URL____"
+echo "____________$ARCHIVE___________"
 
 curl curl -L -o config.zip "$DRIVE_URL" --output - \
     && unzip -P "$ARCHIVE" config.zip \
