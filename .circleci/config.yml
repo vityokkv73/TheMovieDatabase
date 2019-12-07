@@ -10,7 +10,6 @@ defaults: &defaults
 jobs:
   debug_build:
     <<: *defaults
-
     steps:
       - checkout
       - restore_cache:
@@ -18,9 +17,6 @@ jobs:
       - run:
           name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
           command: sudo chmod +x ./gradlew
-      - run:
-          name: Print env vars
-          command: echo "$DRIVE_URL $ARCHIVE"
       - run:
           name: Load configuration
           command: sudo chmod +x ./config/load_config.sh && ./config/load_config.sh $DRIVE_URL $ARCHIVE
@@ -38,9 +34,9 @@ jobs:
       - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
           path: app/build/reports
           destination: reports
-  unit_tests:
-    <<: *defaults
 
+   release_build:
+    <<: *defaults
     steps:
       - checkout
       - restore_cache:
@@ -50,7 +46,34 @@ jobs:
           command: sudo chmod +x ./gradlew
       - run:
           name: Load configuration
-          command: sudo chmod +x ./config/load_config.sh && ./config/load_config.sh
+          command: sudo chmod +x ./config/load_config.sh && ./config/load_config.sh $DRIVE_URL $ARCHIVE
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+      - run:
+          name: Build debug version
+          command: ./gradlew assembleRelease
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+
+      - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
+          path: app/build/reports
+          destination: reports
+
+  unit_tests:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+      - run:
+          name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
+          command: sudo chmod +x ./gradlew
+      - run:
+          name: Load configuration
+          command: sudo chmod +x ./config/load_config.sh && ./config/load_config.sh $DRIVE_URL $ARCHIVE
       - run:
           name: Run Unit Tests
           command: ./gradlew testDebugUnitTest
