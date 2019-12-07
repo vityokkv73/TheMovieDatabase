@@ -19,13 +19,8 @@ jobs:
           name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
           command: sudo chmod +x ./gradlew
       - run:
-          name: Setup Environment Variables
-          command: |
-            echo "export ARCHIVE=$ARCHIVE" >> $BASH_ENV
-            echo "export DRIVE_URL=$DRIVE_URL" >> $BASH_ENV
-      - run:
           name: Load configuration
-          command: sudo chmod +x ./config/load_config.sh && ./config/load_config.sh
+          command: sudo chmod +x ./config/load_config.sh && ./config/load_config.sh $DRIVE_URL $ARCHIVE
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
