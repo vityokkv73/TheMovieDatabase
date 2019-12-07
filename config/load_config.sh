@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "$DRIVE_URL"
+echo "$ARCHIVE"
+
 curl curl -L -o config.zip "$DRIVE_URL" --output - \
     && unzip -P "$ARCHIVE" config.zip \
     && mv config/config.properties ./ \
