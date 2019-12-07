@@ -22,7 +22,7 @@ jobs:
           name: Setup Environment Variables
           command: |
             echo "export ARCHIVE=$ARCHIVE" >> $BASH_ENV
-            echo "export DRIVE_URL=DRIVE_URL" >> $BASH_ENV
+            echo "export DRIVE_URL=$DRIVE_URL" >> $BASH_ENV
       - run:
           name: Load configuration
           command: sudo chmod +x ./config/load_config.sh && ./config/load_config.sh
