@@ -9,6 +9,6 @@ echo "______$DRIVE_URL____"
 echo "____________$ARCHIVE___________"
 curl -L -o config.zip "$1" \
     && unzip -P "$2" config.zip \
-    && mv config/config.properties ./ \
-    && mv config/tmdb_release.keystore ./config \
+    && mv config.properties ./ \
+    && mv tmdb_release.keystore ./config \
     && rm config.zip
